@@ -3,3 +3,14 @@
 @tailwind utilities;
 
 
+.radialGradientBlue{
+    background-image: radial-gradient(rgb(0, 183, 255),rgb(200, 183, 255));
+}
+
+.radialGradientOrange{
+    background-image: radial-gradient(rgb(255, 183, 100),rgb(255, 183, 0));
+}
+
+.button{
+    @apply border border-white rounded-full h-12 w-12
+}

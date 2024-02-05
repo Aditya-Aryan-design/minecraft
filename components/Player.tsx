@@ -2,7 +2,8 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { useSphere } from "@react-three/cannon";
 import { useEffect, useRef } from "react";
 import { Vector3 } from "three";
-import { useKeyBoard } from "@/hooks/useKeyboard";
+import { useAppSelector } from "@/redex/hooks";
+
 
 const Jump_Force = 5;
 const Speed = 1;
@@ -10,8 +11,17 @@ const Speed = 1;
 
 
 function Player() {
-    const actions = useKeyBoard()
     const { camera } = useThree();
+    const playerAction = useAppSelector(state=>state.player.value)
+
+
+    const direction = new Vector3();
+    const frontVector = new Vector3(
+        0, 0, (playerAction === "moveBackward" ? 1 : 0) - (playerAction === "moveForward" ? 1 : 0)
+    )
+    const sideVector = new Vector3(
+        (playerAction === "moveLeft" ? 1 : 0) - (playerAction === "moveRight" ? 1 : 0), 0, 0
+    )
 
     const [ref, api]: any = useSphere(() => ({
         mass: 1,
@@ -20,22 +30,11 @@ function Player() {
     }))
 
 
-    // movement vectors
-    const direction = new Vector3();
-    const frontVector = new Vector3(
-        0, 0, (actions.moveBackward ? 1 : 0) - (actions.moveForward ? 1 : 0)
-    )
-    const sideVector = new Vector3(
-        (actions.moveLeft ? 1 : 0) - (actions.moveRight ? 1 : 0), 0, 0
-    )
 
 
     const vel = useRef([0, 0, 0])
 
-    // Jump logic
-    if(actions.jump && Math.abs(vel.current[1]) < 0.003){
-        api.velocity.set(0,Jump_Force,0)
-    }
+    
 
 
 
@@ -56,9 +55,6 @@ function Player() {
 
 
 
-
-
-
         direction
             .subVectors(frontVector, sideVector)
             .normalize()
@@ -66,8 +62,10 @@ function Player() {
             .applyEuler(camera.rotation)
 
         api.velocity.set(direction.x, vel.current[1], direction.z)
+
     })
 
+     
 
 
 
