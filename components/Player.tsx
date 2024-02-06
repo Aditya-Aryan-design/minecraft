@@ -2,7 +2,10 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { useSphere } from "@react-three/cannon";
 import { useEffect, useRef } from "react";
 import { Vector3 } from "three";
-import { useAppSelector } from "@/redex/hooks";
+import { useAppSelector,useAppDispatch } from "@/redex/hooks";
+import { prevstate } from "@/redex/slices/playerState";
+
+
 
 
 const Jump_Force = 5;
@@ -13,6 +16,8 @@ const Speed = 1;
 function Player() {
     const { camera } = useThree();
     const playerAction = useAppSelector(state=>state.player.value)
+
+    const dispatch = useAppDispatch()
 
 
     const direction = new Vector3();
@@ -30,12 +35,12 @@ function Player() {
     }))
 
 
-
-
-    const vel = useRef([0, 0, 0])
-
     
-
+    
+    const vel = useRef([0, 0, 0])
+    
+    
+    
 
 
 
@@ -62,6 +67,11 @@ function Player() {
             .applyEuler(camera.rotation)
 
         api.velocity.set(direction.x, vel.current[1], direction.z)
+
+        if(playerAction === "jump" && Math.abs(vel.current[1])<0.001){
+            api.velocity.set(0,Jump_Force,0);
+            dispatch(prevstate())
+        }
 
     })
 

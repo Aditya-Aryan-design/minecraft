@@ -11,6 +11,14 @@
     background-image: radial-gradient(rgb(255, 183, 100),rgb(255, 183, 0));
 }
 
+.Trans{
+    @apply bg-[rgb(100,100,100,0.2)]
+}
+
 .button{
-    @apply border border-white rounded-full h-12 w-12
+    @apply border-[0.5vmin] border-white rounded-full h-[9vmin] w-[9vmin]
+}
+
+.button2{
+    @apply border-[0.5vmin] h-[12vmin] w-[12vmin] rounded-full border-zinc-200
 }
