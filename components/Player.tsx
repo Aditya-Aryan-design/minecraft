@@ -1,6 +1,6 @@
 import { useFrame, useThree } from "@react-three/fiber";
 import { useSphere } from "@react-three/cannon";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback, memo } from "react";
 import { Vector3 } from "three";
 import { useAppSelector,useAppDispatch } from "@/redex/hooks";
 import { prevstate } from "@/redex/slices/playerState";
@@ -41,21 +41,24 @@ function Player() {
     
     
     
+    const positionCallBack = useCallback(()=>api.position.subscribe((p: any) => pos.current = p),[api.position])
+    const velocityCallBack = useCallback(()=>api.velocity.subscribe((v: any) => vel.current = v),[api.velocity])
 
 
 
     useEffect(() => {
-        api.velocity.subscribe((v: any) => vel.current = v)
+        velocityCallBack()
     }, [api.velocity])
 
 
     const pos = useRef([0, 0, 0])
     useEffect(() => {
-        api.position.subscribe((p: any) => pos.current = p)
+        positionCallBack()
     }, [api.position])
 
-    useFrame(() => {
 
+
+    useFrame(() => {
         camera.position.copy(new Vector3(pos.current[0], pos.current[1], pos.current[2]));
 
 
@@ -72,7 +75,7 @@ function Player() {
             api.velocity.set(0,Jump_Force,0);
             dispatch(prevstate())
         }
-
+        
     })
 
      
@@ -90,4 +93,4 @@ function Player() {
     )
 }
 
-export default Player
+export default memo(Player)

@@ -3,7 +3,7 @@ import { NearestFilter, RepeatWrapping } from "three"
 
 
 
-export const LoadTexture =(img:string)=>{
+const LoadTexture =(img:string)=>{
     const texture = new TextureLoader().load(img);
 
     texture.magFilter = NearestFilter;
@@ -12,3 +12,5 @@ export const LoadTexture =(img:string)=>{
 
     return texture
 }
+
+export {LoadTexture}

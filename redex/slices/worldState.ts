@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { nanoid } from 'nanoid'
 
 
+
 export type nameType = "rmCube" | "dirt" | "glass" | "wood" | "wall" | "grass"
 export type posType = [x:number,y:number,z:number]
 
@@ -21,16 +22,9 @@ export const WorldSlice = createSlice({
   name: 'world',
   initialState,
   reducers: {
-    loadWorld: (state)=>{
-      const saved = localStorage.getItem("minecraftWorld");
-
-      if(!saved) return;
-  
-      let world = JSON.parse(saved)
-  
-      state.value = world
+    addAll: (state, action) => {
+      state.value = action.payload
     },
-
     addCube: (state,actions) => {
       state.value.push({
         id: nanoid(),
@@ -39,21 +33,35 @@ export const WorldSlice = createSlice({
       })
       
     },
-
+    
     resetWorld: (state)=>{
       state.value = []
     },
-
+    
     removeCube: (state,actions)=>{
-      const {position} = actions.payload
-      state.value= state.value.filter(e=>{
-        return e.position[0] !== position[0] && e.position[1] !== position[1] && e.position[2] !== position[2]
-      })
+      const {position} = actions.payload;
+
+      let {value} = state
+      
+      let newState:any = [];
+      for(let i=0; i<value.length; i++){
+
+        if(value[i].position[0] !== position[0] || value[i].position[1] !== position[1] || value[i].position[2] !== position[2]){
+          newState.push(value[i])
+        }
+        
+        
+
+      }
+      state.value = newState
+      
+      
+      
     }
 
 }})
 
 
-export const { loadWorld,addCube,resetWorld,removeCube } = WorldSlice.actions
+export const { addCube,resetWorld,removeCube,addAll } = WorldSlice.actions
 
 export default WorldSlice.reducer

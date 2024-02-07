@@ -1,4 +1,7 @@
 import { useAppSelector } from "@/redex/hooks"
+import { memo } from "react"
+import { FaSave } from "react-icons/fa";
+
 
 function SaveBtn() {
 
@@ -9,12 +12,14 @@ function SaveBtn() {
 
         if(conf){
             localStorage.setItem("minecraftWorld",JSON.stringify(world))
+            console.log(localStorage.getItem("minecraftWorld"));
+            
         }
     }
 
   return (
-    <button className="Trans button absolute top-[3%] right-[30%] font-bold text-white text-[3vmin] z-50" onClick={handleSave}>Save</button>
+    <button className="Trans button absolute top-[3%] right-[30%] font-bold text-white z-50 text-[5vmin]" onClick={handleSave}><FaSave /></button>
   )
 }
 
-export default SaveBtn
+export default memo(SaveBtn)

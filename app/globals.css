@@ -16,9 +16,9 @@
 }
 
 .button{
-    @apply border-[0.5vmin] border-white rounded-full h-[9vmin] w-[9vmin]
+    @apply border-[0.5vmin] border-white rounded-full h-[9vmin] w-[9vmin] flex justify-center items-center
 }
 
 .button2{
-    @apply border-[0.5vmin] h-[12vmin] w-[12vmin] rounded-full border-zinc-200
+    @apply border-[0.5vmin] h-[12vmin] flex justify-center items-center w-[12vmin] rounded-full border-zinc-200
 }

@@ -1,3 +1,4 @@
+import { useMemo,memo } from "react"
 import { usePlane } from "@react-three/cannon"
 import { LoadTexture } from "@/images/textures"
 import images from "@/images/images"
@@ -13,7 +14,7 @@ function Ground() {
         rotation:[-Math.PI/2,0,0],position:[0,-0.5,0]
     }))
 
-    const grass = LoadTexture(images.grass)
+    const grass = useMemo(()=>LoadTexture(images.grass),[])
     grass.repeat.set(50,50)
 
     const selectedCube = useAppSelector(state=>state.cube.value)
@@ -43,4 +44,4 @@ function Ground() {
   )
 }
 
-export default Ground
+export default memo(Ground)

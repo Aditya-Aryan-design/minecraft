@@ -1,4 +1,5 @@
 "use client"
+import { memo } from "react";
 import CanvasElem from "@/components/Canvas";
 import MoveBtn from "@/components/MoveBtn";
 import JumpBtn from "@/components/JumpBtn";
@@ -12,9 +13,10 @@ import SaveBtn from "@/components/SaveBtn";
 
 
 
+
+
 function page() {
 
-  
 
 
   return (
@@ -26,7 +28,9 @@ function page() {
       <SaveBtn />
 
       <div className="h-screen w-screen absolute top-0 left-0">
-      <CanvasElem />
+
+        <CanvasElem />
+
       </div>
 
       <MoveBtn />
@@ -36,4 +40,4 @@ function page() {
   )
 }
 
-export default page
+export default memo(page)

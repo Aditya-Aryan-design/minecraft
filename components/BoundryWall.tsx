@@ -1,13 +1,14 @@
 import { LoadTexture } from "@/images/textures"
 import { usePlane } from "@react-three/cannon"
 import images from "@/images/images"
+import { memo,useMemo } from "react"
 
 function BoundryWall({pos,rot}:{
     pos:[x:number,y:number,z:number],
     rot:[x:number,y:number,z:number],
 }) {
 
-    const wood = LoadTexture(images.wood)
+    const wood = useMemo(()=>LoadTexture(images.wood),[])
     wood.repeat.set(20,2)
 
     const [ref]:any = usePlane(()=>({
@@ -23,4 +24,4 @@ function BoundryWall({pos,rot}:{
   )
 }
 
-export default BoundryWall
+export default memo(BoundryWall)

@@ -1,3 +1,4 @@
+import { memo,useEffect,useMemo } from "react";
 import { LoadTexture } from "@/images/textures"
 import images from "@/images/images"
 import { useBox } from "@react-three/cannon";
@@ -13,8 +14,11 @@ const Cube = ({pos,name}:{pos:posType,name: nameType}) => {
   if(name === "rmCube") return
 
 
-  let texture = LoadTexture(images[name]);
+  let texture = useMemo(()=>LoadTexture(images[name]),[])
+
+  useEffect(()=>{
     texture.repeat.set(1,1)
+  },[])
 
 
 
@@ -69,4 +73,4 @@ const Cube = ({pos,name}:{pos:posType,name: nameType}) => {
   )
 }
 
-export default Cube
+export default memo(Cube)

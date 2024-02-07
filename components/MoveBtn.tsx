@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { useAppDispatch } from "@/redex/hooks";
 import { moveForward,moveBackward,moveLeft,moveRight,stop } from "@/redex/slices/playerState";
 
@@ -25,4 +26,4 @@ function MoveBtn() {
   )
 }
 
-export default MoveBtn
+export default memo(MoveBtn)

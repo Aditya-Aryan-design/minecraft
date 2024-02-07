@@ -1,3 +1,4 @@
+import { memo } from "react"
 import images from "@/images/images"
 import Image from "next/image"
 import { useAppDispatch,useAppSelector } from "@/redex/hooks"
@@ -11,7 +12,10 @@ const TextureBtns = () => {
   return (
     <div className='flex flex-col absolute top-[2vh] left-[2vw] space-y-[2vh] z-50'>
 
-        <button className={`rounded-full overflow-hidden border-[0.5vmin] ${cube !== "dirt"?'border-zinc-600':"border-white"} cursor-pointer`} onClick={()=>dispatch(changeCube("dirt"))} >
+        <button className={`rounded-full overflow-hidden border-[0.5vmin] ${cube !== "dirt"?'border-zinc-600':"border-white"} cursor-pointer`} onClick={()=>{
+            
+            dispatch(changeCube("dirt"))
+            }} >
             <Image className="h-[6vmin] w-[6vmin]" src={images.dirt} height={50} width={50} alt="dirt"/>
         </button>
 
@@ -34,4 +38,4 @@ const TextureBtns = () => {
   )
 }
 
-export default TextureBtns
+export default memo(TextureBtns)

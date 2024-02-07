@@ -1,3 +1,4 @@
+import { memo } from "react"
 import BoundryWall from "./BoundryWall"
 
 const Boundry = () => {
@@ -19,4 +20,4 @@ const Boundry = () => {
   )
 }
 
-export default Boundry
+export default memo(Boundry)

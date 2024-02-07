@@ -7,9 +7,11 @@ import Ground from "./Ground";
 import Player from "./Player";
 import Cube from "./Cube";
 import { useAppSelector,useAppDispatch } from "@/redex/hooks";
-import { useEffect } from "react";
-import { loadWorld } from "@/redex/slices/worldState";
+import { addAll } from "@/redex/slices/worldState";
+import { useCallback, useEffect, memo } from "react";
 import Boundry from "./Boundry";
+
+
 
 
 
@@ -18,13 +20,30 @@ function CanvasElem() {
 
   const dispatch = useAppDispatch()
 
-  const cubes = useAppSelector(state=>state.world.value)
-
-  useEffect(()=>{
+  const loadWorld = useCallback(()=>{
     
-    dispatch(loadWorld())
+    const saved = localStorage.getItem("minecraftWorld");
+      
+      
+    if(!saved) return;
     
+    let world = JSON.parse(saved)
+    
+    return dispatch(addAll(world))
   },[])
+
+  
+  
+  useEffect(()=>{
+    loadWorld()
+  },[])
+  
+
+  const cube = useCallback(()=>useAppSelector(state=>state.world.value),[])
+
+
+    
+  
 
   return (
     
@@ -35,7 +54,9 @@ function CanvasElem() {
         <Physics>
             <Player />
             {
-              cubes.map((e)=>{
+              cube().map((e)=>{
+                
+                
                 return(
                   <Cube key={e.id} pos={e.position} name={e.name}/>
                 )
@@ -49,4 +70,4 @@ function CanvasElem() {
   )
 }
 
-export default CanvasElem
+export default memo(CanvasElem)
