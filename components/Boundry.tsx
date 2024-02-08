@@ -10,10 +10,10 @@ const Boundry = () => {
 
     <>
 
-    <BoundryWall pos={[50,0,0]} rot={[0,-Math.PI/2,0]}/>
-    <BoundryWall pos={[0,0,-50]} rot={[0,0,0]}/>
-    <BoundryWall pos={[0,0,50]} rot={[0,Math.PI,0]}/>
-    <BoundryWall pos={[-50,0,0]} rot={[0,Math.PI/2,0]}/>
+    <BoundryWall pos={[50,4,0]} rot={[0,-Math.PI/2,0]}/>
+    <BoundryWall pos={[0,4,-50]} rot={[0,0,0]}/>
+    <BoundryWall pos={[0,4,50]} rot={[0,Math.PI,0]}/>
+    <BoundryWall pos={[-50,4,0]} rot={[0,Math.PI/2,0]}/>
     
     
     </>

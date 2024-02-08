@@ -15,7 +15,7 @@ function Ground() {
     }))
 
     const grass = useMemo(()=>LoadTexture(images.grass),[])
-    grass.repeat.set(50,50)
+    grass.repeat.set(100,100)
 
     const selectedCube = useAppSelector(state=>state.cube.value)
 

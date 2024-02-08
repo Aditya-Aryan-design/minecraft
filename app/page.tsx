@@ -1,5 +1,5 @@
 "use client"
-import { memo } from "react";
+import { memo,useEffect,useCallback } from "react";
 import CanvasElem from "@/components/Canvas";
 import MoveBtn from "@/components/MoveBtn";
 import JumpBtn from "@/components/JumpBtn";
@@ -17,7 +17,18 @@ import SaveBtn from "@/components/SaveBtn";
 
 function page() {
 
-
+  const handleRightClick = useCallback(()=>{
+    document.body.addEventListener("contextmenu",(e)=>{
+      e.preventDefault()
+    });
+    return document.body.removeEventListener("contextmenu",(e)=>{
+      e.preventDefault()
+    });
+  },[])
+  
+  useEffect(()=>{
+    handleRightClick()
+  },[])
 
   return (
     <div className="h-screen w-screen overflow-hidden flex items-center justify-center">

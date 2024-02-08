@@ -9,7 +9,7 @@ function BoundryWall({pos,rot}:{
 }) {
 
     const wood = useMemo(()=>LoadTexture(images.wood),[])
-    wood.repeat.set(20,2)
+    wood.repeat.set(50,10)
 
     const [ref]:any = usePlane(()=>({
         rotation:rot,position:pos

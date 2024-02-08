@@ -4,4 +4,5 @@ export default {
     wood:"/wood.jpeg",
     wall:"/wall.jpeg",
     grass:"/grass.jpeg",
+    aditya:"/favicon.jpeg"
 }

@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid'
 
 
 
-export type nameType = "rmCube" | "dirt" | "glass" | "wood" | "wall" | "grass"
+export type nameType = "rmCube" | "dirt" | "glass" | "wood" | "wall" | "grass" | "aditya"
 export type posType = [x:number,y:number,z:number]
 
 

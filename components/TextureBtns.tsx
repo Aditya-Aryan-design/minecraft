@@ -34,6 +34,10 @@ const TextureBtns = () => {
         <button className={`rounded-full overflow-hidden border-[0.5vmin] ${cube !== "wood"?'border-zinc-600':"border-white"} cursor-pointer`} onClick={()=>dispatch(changeCube("wood"))}>
             <Image className="h-[6vmin] w-[6vmin]" src={images.wood} height={50} width={50} alt="wood"/>
         </button>
+
+        <button className={`rounded-full overflow-hidden border-[0.5vmin] ${cube !== "aditya"?'border-zinc-600':"border-white"} cursor-pointer`} onClick={()=>dispatch(changeCube("aditya"))}>
+            <Image className="h-[6vmin] w-[6vmin]" src={images.aditya} height={50} width={50} alt="me"/>
+        </button>
     </div>
   )
 }

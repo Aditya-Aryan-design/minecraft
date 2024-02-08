@@ -47,7 +47,13 @@ function CanvasElem() {
 
   return (
     
-    <Canvas>
+    <Canvas
+      camera={{
+        fov:50,
+        near:0.1,
+        far:142
+      }}
+    >
         <Sky sunPosition={[100,100,20]}/>
         <ambientLight intensity={2}/>
         <FPV />
