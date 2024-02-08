@@ -5,11 +5,13 @@ import { Physics } from "@react-three/cannon";
 import FPV from "./FPV";
 import Ground from "./Ground";
 import Player from "./Player";
-import Cube from "./Cube";
+import CubeTexture from "./CubeTexture";
+import CubeColor from "./CubeColor";
 import { useAppSelector,useAppDispatch } from "@/redex/hooks";
 import { addAll } from "@/redex/slices/worldState";
 import { useCallback, useEffect, memo } from "react";
 import Boundry from "./Boundry";
+
 
 
 
@@ -27,7 +29,10 @@ function CanvasElem() {
       
     if(!saved) return;
     
+    
     let world = JSON.parse(saved)
+    
+    if(!world[0] || !world[1]) return
     
     return dispatch(addAll(world))
   },[])
@@ -39,10 +44,8 @@ function CanvasElem() {
   },[])
   
 
-  const cube = useCallback(()=>useAppSelector(state=>state.world.value),[])
-
-
-    
+  const cubeColor = useAppSelector(state=>state.world.value1)
+  const cubeTexture = useAppSelector(state=>state.world.value2)
   
 
   return (
@@ -55,16 +58,24 @@ function CanvasElem() {
       }}
     >
         <Sky sunPosition={[100,100,20]}/>
-        <ambientLight intensity={2}/>
+        <ambientLight intensity={1}/>
+        <directionalLight intensity={2} color="#ffffaa" position={[100,100,20]}/>
         <FPV />
         <Physics>
             <Player />
             {
-              cube().map((e)=>{
+              cubeColor.map((e)=>{
+                return(
+                  <CubeColor key={e.id} pos={e.position} name={e.name} />
+                )
+              })
+            }
+            {
+              cubeTexture.map((e)=>{
                 
                 
                 return(
-                  <Cube key={e.id} pos={e.position} name={e.name}/>
+                  <CubeTexture key={e.id} pos={e.position} name={e.name}/>
                 )
               })
             }

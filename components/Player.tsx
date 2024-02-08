@@ -41,8 +41,8 @@ function Player() {
     
     
     
-    const positionCallBack = useCallback(()=>api.position.subscribe((p: any) => pos.current = p),[api.position])
-    const velocityCallBack = useCallback(()=>api.velocity.subscribe((v: any) => vel.current = v),[api.velocity])
+    const positionCallBack = useCallback(()=>api.position.subscribe((p: any) => pos.current = p),[])
+    const velocityCallBack = useCallback(()=>api.velocity.subscribe((v: any) => vel.current = v),[])
 
 
 

@@ -1,15 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { nameType } from './worldState'
+import { nameColorType, nameTextureType } from './worldState'
 
 
 
 export interface CubeState {
-  value: nameType
+  value: {name: nameColorType | nameTextureType, type: "nameColorType" | "nameTextureType"}
 }
 
 
 const initialState: CubeState = {
-  value: "dirt",
+  value: {name:"dirt",type:"nameTextureType"},
 }
 
 

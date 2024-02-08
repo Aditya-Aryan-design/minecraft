@@ -1,43 +1,35 @@
-import { memo } from "react"
-import images from "@/images/images"
-import Image from "next/image"
-import { useAppDispatch,useAppSelector } from "@/redex/hooks"
-import { changeCube } from "@/redex/slices/cubeState"
+import { SetStateAction, memo } from "react"
+import TextureBtnItem from "./TextureBtnItem"
+import ColorBtnItem from "./ColorBtnsItem"
+import { useAppSelector } from "@/redex/hooks"
+import { nameColorType, nameTextureType } from "@/redex/slices/worldState"
 
-const TextureBtns = () => {
+const TextureBtns = ({setShowBtns}:{setShowBtns:SetStateAction<any>}) => {
 
-    const cube = useAppSelector(state=>state.cube.value)
-    const dispatch = useAppDispatch()
+    const active = useAppSelector(state=>state.cube.value)
+
+    
+    const btns1:nameTextureType[] = ["dirt","floor","wood","wall","grass","aditya","rock","metal","roof","tile","wall1","wood1"]
+
+
+    const btns2:nameColorType[] = ["green","red","#333","yellow","#aaa","orange"
+    ]
+    
+    
 
   return (
-    <div className='flex flex-col absolute top-[2vh] left-[2vw] space-y-[2vh] z-50'>
+    <div className='flex flex-wrap top-[25%] left-[25%] z-50 h-[50%] w-[50%] Trans space-x-[2vw] items-center justify-center px-[3vmin]' onClick={()=>setShowBtns(false)}>
 
-        <button className={`rounded-full overflow-hidden border-[0.5vmin] ${cube !== "dirt"?'border-zinc-600':"border-white"} cursor-pointer`} onClick={()=>{
-            
-            dispatch(changeCube("dirt"))
-            }} >
-            <Image className="h-[6vmin] w-[6vmin]" src={images.dirt} height={50} width={50} alt="dirt"/>
-        </button>
-
-        <button className={`rounded-full overflow-hidden border-[0.5vmin] ${cube !== "glass"?'border-zinc-600':"border-white"} cursor-pointer`} onClick={()=>dispatch(changeCube("glass"))}>
-            <Image className="h-[6vmin] w-[6vmin]" src={images.glass} height={50} width={50} alt="glass"/>
-        </button>
-
-        <button className={`rounded-full overflow-hidden border-[0.5vmin] ${cube !== "grass"?'border-zinc-600':"border-white"} cursor-pointer`} onClick={()=>dispatch(changeCube("grass"))}>
-            <Image className="h-[6vmin] w-[6vmin]" src={images.grass} height={50} width={50} alt="grass"/>
-        </button>
-
-        <button className={`rounded-full overflow-hidden border-[0.5vmin] ${cube !== "wall"?'border-zinc-600':"border-white"} cursor-pointer`} onClick={()=>dispatch(changeCube("wall"))}>
-            <Image className="h-[6vmin] w-[6vmin]" src={images.wall} height={50} width={50} alt="wall"/>
-        </button>
-
-        <button className={`rounded-full overflow-hidden border-[0.5vmin] ${cube !== "wood"?'border-zinc-600':"border-white"} cursor-pointer`} onClick={()=>dispatch(changeCube("wood"))}>
-            <Image className="h-[6vmin] w-[6vmin]" src={images.wood} height={50} width={50} alt="wood"/>
-        </button>
-
-        <button className={`rounded-full overflow-hidden border-[0.5vmin] ${cube !== "aditya"?'border-zinc-600':"border-white"} cursor-pointer`} onClick={()=>dispatch(changeCube("aditya"))}>
-            <Image className="h-[6vmin] w-[6vmin]" src={images.aditya} height={50} width={50} alt="me"/>
-        </button>
+        {
+            btns1.map((e,i)=>{
+                return <TextureBtnItem key={i} img={e} cube={active.name}/>
+            })
+        }
+        {
+            btns2.map((e,i)=>{
+                return <ColorBtnItem key={i} color={e} cube={active.name}/>
+            })
+        }
     </div>
   )
 }

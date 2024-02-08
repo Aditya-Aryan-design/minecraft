@@ -19,7 +19,7 @@ function BoundryWall({pos,rot}:{
     <mesh ref={ref}>
         <planeGeometry attach="geometry" args={[100,10]}/>
 
-        <meshStandardMaterial attach="material" map={wood} />
+        <meshStandardMaterial attach="material" map={wood} bumpMap={wood} bumpScale={10}  />
     </mesh>
   )
 }

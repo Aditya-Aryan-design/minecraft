@@ -3,17 +3,20 @@ import { nanoid } from 'nanoid'
 
 
 
-export type nameType = "rmCube" | "dirt" | "glass" | "wood" | "wall" | "grass" | "aditya"
+export type nameTextureType = "rmCube" | "dirt" | "floor" | "wood" | "wall" | "grass" | "aditya" | "rock" | "metal" | "roof" | "tile" | "wall1" | "wood1" 
+export type nameColorType = "pink" | "blue" | "green" | "red" | "#333" | "yellow" | "#aaa" | "orange"
 export type posType = [x:number,y:number,z:number]
 
 
 export interface WorldState {
-  value: {id:string,name:nameType,position:posType}[]
+  value1: {id:string,name:nameColorType,position:posType,type?:"nameColorType"}[],
+  value2: {id:string,name:nameTextureType,position:posType,type?:"nameTextureType"}[],
 }
 
 
 const initialState: WorldState = {
-  value: [],
+  value1: [],
+  value2: [],
 }
 
 
@@ -23,28 +26,53 @@ export const WorldSlice = createSlice({
   initialState,
   reducers: {
     addAll: (state, action) => {
-      state.value = action.payload
+      state.value1 = action.payload[0],
+      state.value2 = action.payload[1]
     },
     addCube: (state,actions) => {
-      state.value.push({
-        id: nanoid(),
-        name: actions.payload.name,
-        position: actions.payload.position
-      })
+
+      if(actions.payload.type === "nameColorType"){
+
+        state.value1.push({
+          id: nanoid(),
+          name: actions.payload.name,
+          position: actions.payload.position
+
+        })
+      } else if(actions.payload.type === "nameTextureType"){
+
+        state.value2.push({
+          id: nanoid(),
+          name: actions.payload.name,
+          position: actions.payload.position
+
+        })
+      }
+      
       
     },
     
     resetWorld: (state)=>{
-      state.value = []
+      state.value1 = [],
+      state.value2 = []
     },
     
     removeCube: (state,actions)=>{
-      const {position} = actions.payload;
+      const {position,type} = actions.payload;
 
-      let {value} = state
+      
+
+      let value;
+
+      if(type === "nameColorType"){
+        value = state.value1
+      } else {
+        value = state.value2
+      }
       
       let newState:any = [];
       for(let i=0; i<value.length; i++){
+
 
         if(value[i].position[0] !== position[0] || value[i].position[1] !== position[1] || value[i].position[2] !== position[2]){
           newState.push(value[i])
@@ -53,7 +81,12 @@ export const WorldSlice = createSlice({
         
 
       }
-      state.value = newState
+      
+      if(type === "nameColorType"){
+        state.value1 = newState
+      } else {
+        state.value2 = newState
+      }
       
       
       

@@ -5,7 +5,7 @@ import { FaSave } from "react-icons/fa";
 
 function SaveBtn() {
 
-    const world = useAppSelector(state=>state.world.value)
+    const world = useAppSelector(state=>[state.world.value1,state.world.value2])
 
     const handleSave = ()=>{
         const conf = confirm("Do you want to save the world?")

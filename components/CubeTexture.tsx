@@ -2,12 +2,12 @@ import { memo,useEffect,useMemo } from "react";
 import { LoadTexture } from "@/images/textures"
 import images from "@/images/images"
 import { useBox } from "@react-three/cannon";
-import { nameType,posType } from "@/redex/slices/worldState";
+import { nameTextureType,posType } from "@/redex/slices/worldState";
 import { useAppDispatch,useAppSelector } from "@/redex/hooks";
 import { addCube,removeCube } from "@/redex/slices/worldState";
 
 
-const Cube = ({pos,name}:{pos:posType,name: nameType}) => {
+const CubeTexture = ({pos,name}:{pos:posType,name: nameTextureType}) => {
 
 
 
@@ -45,21 +45,26 @@ const Cube = ({pos,name}:{pos:posType,name: nameType}) => {
           let face = Math.floor(faceIndex/2);
           const {x,y,z} = ref.current.position
           
-          if(activeCube === "rmCube"){
 
-            return dispatch(removeCube({position: [x,y,z]}))
+          if(activeCube.name === "rmCube"){
+            
+            return dispatch(removeCube({position: [x,y,z],type: "nameTextureType"}))
           }
 
+          const {name, type} = activeCube
+
           if(face === 0){
-            dispatch(addCube({name:activeCube, position: [x+1,y,z]}))
+            dispatch(addCube({name, type, position: [x+1,y,z]}))
           } else if(face === 1){
-            dispatch(addCube({name:activeCube, position: [x-1,y,z]}))
+            dispatch(addCube({name, type, position: [x-1,y,z]}))
           } else if(face === 2){
-            dispatch(addCube({name:activeCube, position: [x,y+1,z]}))
+            dispatch(addCube({name, type, position: [x,y+1,z]}))
+          }else if(face === 3){
+            dispatch(addCube({name, type, position: [x,y-1,z]}))
           } else if(face === 4){
-            dispatch(addCube({name:activeCube, position: [x,y,z+1]}))
+            dispatch(addCube({name, type, position: [x,y,z+1]}))
           } else if(face === 5){
-            dispatch(addCube({name:activeCube, position: [x,y,z-1]}))
+            dispatch(addCube({name, type, position: [x,y,z-1]}))
           }
           
         }
@@ -67,10 +72,10 @@ const Cube = ({pos,name}:{pos:posType,name: nameType}) => {
       }}
     >
       <boxGeometry attach="geometry" />
-      <meshStandardMaterial attach="material" map={texture} />
+      <meshStandardMaterial attach="material" map={texture} bumpMap={texture} bumpScale={20} />
     </mesh>
 
   )
 }
 
-export default memo(Cube)
+export default memo(CubeTexture)

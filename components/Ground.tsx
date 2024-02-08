@@ -29,9 +29,11 @@ function Ground() {
       onDoubleClick={(e)=>{
         e.stopPropagation()
 
-        const [x,y,z] = Object.values(e.point).map(e=>Math.round(e))
-
-        dispatch(addCube({name:selectedCube,position:[x,y,z]}))  
+        const [x,y,z] = Object.values(e.point).map((e)=>{
+          return Math.round(e)
+        })
+        
+        dispatch(addCube({name:selectedCube.name,type:selectedCube.type,position:[x,0,z]}))  
         
         
       }}
@@ -39,7 +41,7 @@ function Ground() {
     >
         <planeGeometry attach="geometry" args={[100,100]}/>
 
-        <meshStandardMaterial attach="material" map={grass} />
+        <meshLambertMaterial attach="material" map={grass} bumpMap={grass} bumpScale={10} />
     </mesh>
   )
 }

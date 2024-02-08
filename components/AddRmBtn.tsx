@@ -8,7 +8,7 @@ function RmBtn() {
   const dispatch = useAppDispatch()
 
   return (
-        <button className="Trans button2 absolute font-bold text-white text-[7vmin] z-50 top-[20%] right-[5%]" onClick={()=>dispatch(changeCube("rmCube"))} ><AiFillDelete /></button>
+        <button className="Trans button2 absolute font-bold text-white text-[7vmin] z-50 top-[20%] right-[5%]" onClick={()=>dispatch(changeCube({name:"rmCube"}))} ><AiFillDelete /></button>
 
   )
 }
